@@ -1,0 +1,29 @@
+---
+#
+# Installing Kibana
+#
+# Install Kibana
+- name: Install Kibana
+  apt:
+    name: kibana
+    update_cache: yes
+
+# Update kibana config file to only accept local connections
+- name: Updating the config file
+  lineinfile:
+    destfile: /etc/kibana/kibana.yml
+    regexp: 'server.host:'
+    line: 'server.host: 0.0.0.0'
+
+# Enable Kibana service
+- name: Enabling Kibana service
+  systemd:
+    name: kibana
+    enabled: yes
+    daemon_reload: yes
+
+# Start Kibana service
+- name: Starting Kibana service
+  systemd:
+    name: kibana
+    state: started
