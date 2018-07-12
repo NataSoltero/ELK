@@ -9,19 +9,19 @@
     state: present
 
 # Add the Elasticsearch APT-repository
-- name: Adding Elasticsearch APT repository
+- name: Adding Elasticsearch repository
   apt_repository:
     repo: deb https://artifacts.elastic.co/packages/5.x/apt stable main
     state: present
 
 # Install Elasticsearch
-- name: Update repositories cache and install Elasticsearch
+- name: Install Elasticsearch
   apt:
     name: elasticsearch
     update_cache: yes
 
 # Update Elasticsearch config file to only allow localhost connections
-- name: Updating the config file to restrict outside access
+- name: Updating the config file
   lineinfile:
     destfile: /etc/elasticsearch/elasticsearch.yml
     regexp: 'network.host:'
